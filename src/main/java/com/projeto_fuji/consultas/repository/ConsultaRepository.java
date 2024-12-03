@@ -6,8 +6,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
+
+        @Query("SLECT c FROM Consulta c WHERE c.id = :id")
+    List<Consulta> buscarConsultaPorId(@Param("id") Long id);
+
     @Query("SELECT c.Medico.nome, c.Paciente.nome FROM Consulta c")
-    List<Object[]> buscarMedicoEPaciente(@Param("CONSULTA") String nome);
-
-
+    List<Object[]> buscarMedicoEPaciente();
 }
