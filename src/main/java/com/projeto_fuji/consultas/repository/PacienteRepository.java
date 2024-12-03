@@ -2,10 +2,13 @@ package com.projeto_fuji.consultas.repository;
 
 import com.projeto_fuji.consultas.model.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface PacienteRepository extends JpaRepository<Paciente, Long> {
-    @Query("SELECT p FROM Paciente p WHERE LOWER(p.nome) Like LOWER('%' :NOME'%'))")
-    List<Paciente> buscarPaciente(@Param("NOME") String nome);
-
-
+    @Query("SELECT p FROM Paciente p WHERE p.nome LIKE %:nome%")
+    Optional<Paciente> buscarPaciente(@Param("nome") String nome);
 }
